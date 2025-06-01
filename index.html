@@ -19,8 +19,44 @@
       margin: auto;
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      perspective: 1000px; /* importante para o efeito 3D */
     }
 
+    .frente, .dentro {
+  background-color: #fff;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 1s;
+  backface-visibility: hidden;
+  position: absolute;
+  width: 300px;
+    }
+
+    .frente {
+  z-index: 2;
+}
+
+.dentro {
+  transform: rotateY(180deg);
+  color: #d63384;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+  font-size: 18px;
+}
+
+.aberta .frente {
+  transform: rotateY(180deg);
+}
+
+.aberta .dentro {
+  transform: rotateY(0deg);
+  z-index: 3;
+}
+    
     .mensagem {
       display: none;
       margin-top: 20px;
@@ -46,21 +82,24 @@
 </head>
 <body>
 
-  <div class="cartinha">
+<div class="cartinha" id="cartinha">
+  <div class="frente" id="frenteCartinha">
     <h1>💌 Uma Cartinha Especial 💌</h1>
     <p>Tem algo aqui dentro pra você...</p>
     <button onclick="abrirCartinha()">Abrir Cartinha</button>
-
-    <div class="mensagem" id="mensagemCartinha">
-      <p>Oi! 💖 Eu só queria te lembrar que você é uma pessoa muito especial e que merece todo o carinho do mundo.</p>
-    </div>
   </div>
 
-  <script>
-    function abrirCartinha() {
-      document.getElementById('mensagemCartinha').style.display = 'block';
-    }
-  </script>
+  <div class="dentro" id="dentroCartinha">
+    <p>Oi! 💖 Eu só queria te lembrar que você é uma pessoa muito especial e que merece todo o carinho do mundo.</p>
+  </div>
+</div>
+
+<script>
+  function abrirCartinha() {
+    const cartinha = document.getElementById('cartinha');
+    cartinha.classList.add('aberta');
+  }
+</script>
 
 </body>
 </html>
