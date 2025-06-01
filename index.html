@@ -74,21 +74,31 @@
     }
 
     .card {
-  background-color: #fff0f5;
-  border: 2px solid #ffb6c1;
-  border-radius: 12px;
-  padding: 15px;
-  width: 250px;
-  margin: 10px auto;
-  box-shadow: 2px 4px 6px rgba(0,0,0,0.1);
-  font-size: 16px;
-  color: #a83279;
-  transition: transform 0.3s ease;
-}
+      background-color: #fff0f5;
+      border: 2px solid #ffb6c1;
+      border-radius: 12px;
+      padding: 15px;
+      width: 280px;
+      margin: 10px auto;
+      box-shadow: 2px 4px 6px rgba(0,0,0,0.1);
+      font-size: 16px;
+      color: #a83279;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+      transform: translateY(20px);
+      opacity: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.card:hover {
-  transform: scale(1.05);
-}
+    .card.aparecer {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .emoji {
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
@@ -100,40 +110,44 @@
         <p>Vai, Abre!</p>
         <button onclick="abrirCartinha()">Abrir Cartinha</button>
       </div>
-
-      <div style="margin-top: 50px;">
-  <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
-</div>
-
-<div id="cardsElogios" style="display: none; margin-top: 30px;">
-  <div class="card">Você ilumina o meu dia!</div>
-  <div class="card">Seu sorriso devia ser patrimônio cultural</div>
-  <div class="card">Te ver feliz me deixa feliz também 💖</div>
-  <div class="card">Você é muito gentil!</div>
-  <div class="card">Eu acredito em você, sempre, até nas provas do Avila 😔😔</div>
-</div>
-
       <div class="dentro">
         <p>Oi fofaaa, fiz esse sitezinho pra você, "fiz" é uma palavra muito forte porque precisei de muita ajuda do meu amigão GPT, mas é porque faz pouco tempo que eu to em TI tá bom 😔😔, quando eu souber programar sozinho eu faço outro pra você, só queria te dizer que você é muito legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, te adoro!</p>
       </div>
     </div>
   </div>
 
-<audio id="somCartinha" src="som.mp3"></audio>
+  <!-- Botão e Cards fofos -->
+  <div style="margin-top: 50px;">
+    <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
+  </div>
 
-<script>
-  function abrirCartinha() {
-    const cartinha = document.getElementById('cartinha');
-    const som = document.getElementById('somCartinha');
-    cartinha.classList.add('aberta');
-    som.play();
-  function mostrarElogios() {
-  const area = document.getElementById('cardsElogios');
-  area.style.display = 'block';
-}
+  <div id="cardsElogios" style="margin-top: 30px;">
+    <div class="card"><span class="emoji">🧸</span>Você ilumina o meu dia!<span class="emoji">🌸</span></div>
+    <div class="card"><span class="emoji">🌷</span>Seu sorriso devia ser patrimônio cultural<span class="emoji">🐻</span></div>
+    <div class="card"><span class="emoji">🌸</span>Te ver feliz me deixa feliz também 💖<span class="emoji">🧸</span></div>
+    <div class="card"><span class="emoji">🐰</span>Você é muito gentil!<span class="emoji">🌼</span></div>
+    <div class="card"><span class="emoji">💐</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🐻‍❄️</span></div>
+  </div>
 
-  }
-</script>
+  <audio id="somCartinha" src="som.mp3"></audio>
+
+  <script>
+    function abrirCartinha() {
+      const cartinha = document.getElementById('cartinha');
+      const som = document.getElementById('somCartinha');
+      cartinha.classList.add('aberta');
+      som.play();
+    }
+
+    function mostrarElogios() {
+      const cards = document.querySelectorAll('#cardsElogios .card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('aparecer');
+        }, index * 500); // intervalo de 0.5s entre cada card
+      });
+    }
+  </script>
 
 </body>
 </html>
