@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Cartinha pra Linduxa 💌</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       background-color: #ffeef2;
       text-align: center;
-      padding-top: 100px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      padding: 20px;
+      overflow-x: hidden; /* evita scroll horizontal com as imagens fixas */
+      position: relative;
     }
 
     .container {
       position: relative;
-      width: 300px;
-      height: 200px;
-      margin: auto;
+      width: 320px;
+      margin: 0 auto;
       perspective: 1000px;
+      z-index: 10; /* fica na frente das pétalas */
     }
 
     .cartinha {
@@ -31,7 +40,8 @@
       transform: rotateY(180deg);
     }
 
-    .frente, .dentro {
+    .frente,
+    .dentro {
       position: absolute;
       width: 125%;
       height: 125%;
@@ -39,7 +49,7 @@
       background-color: #fff;
       border: 2px solid #ffb6c1;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       padding: 20px;
       box-sizing: border-box;
     }
@@ -67,6 +77,8 @@
       cursor: pointer;
       transition: background-color 0.3s;
       margin-top: 20px;
+      z-index: 15;
+      position: relative;
     }
 
     button:hover {
@@ -80,7 +92,7 @@
       padding: 15px;
       width: 280px;
       margin: 10px auto;
-      box-shadow: 2px 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
       font-size: 16px;
       color: #a83279;
       transition: transform 0.3s ease, opacity 0.5s ease;
@@ -89,20 +101,74 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 10;
+      position: relative;
     }
 
     .card.aparecer {
       transform: translateY(0);
       opacity: 1;
+      animation: flutuar 4s ease-in-out infinite;
     }
 
     .emoji {
       font-size: 20px;
     }
+
+    /* Animação flutuar */
+    @keyframes flutuar {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* Pétalas de sakura caindo */
+    .petala {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation-name: cairPetala;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      z-index: 5;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes cairPetala {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Personagens Genshin Impact nos lados */
+    .personagem {
+      position: fixed;
+      bottom: 0;
+      width: 120px;
+      z-index: 20;
+      user-select: none;
+      pointer-events: none;
+    }
+    .personagem.esquerda {
+      left: 10px;
+    }
+    .personagem.direita {
+      right: 10px;
+      transform: scaleX(-1); /* espelha horizontalmente para ficar olhando para dentro */
+    }
   </style>
 </head>
 <body>
-
   <div class="container">
     <div class="cartinha" id="cartinha">
       <div class="frente">
@@ -111,25 +177,82 @@
         <button onclick="abrirCartinha()">Abrir Cartinha</button>
       </div>
       <div class="dentro">
-        <p>Oi fofaaa, fiz esse sitezinho pra você, "fiz" é uma palavra muito forte porque precisei de muita ajuda do meu amigão GPT, mas é porque faz pouco tempo que eu to em TI tá bom 😔😔, quando eu souber programar sozinho eu faço outro pra você, só queria te dizer que você é muito legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, ti amoo!</p>
+        <p>
+          Oi fofaaa, fiz esse sitezinho pra você, "fiz" é uma palavra muito forte porque precisei de muita ajuda do meu amigão GPT, mas é porque faz pouco tempo que eu to em TI tá bom 😔😔, quando eu souber programar sozinho eu faço outro pra você, só queria te dizer que você é muito legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, te adoro!
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- Botão e Cards fofos -->
-  <div style="margin-top: 50px;">
+  <div style="margin-top: 50px; z-index: 15; position: relative;">
     <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
   </div>
 
   <div id="cardsElogios" style="margin-top: 30px;">
-    <div class="card"><span class="emoji">🧸</span>Você ilumina o meu dia!<span class="emoji">🌸</span></div>
-    <div class="card"><span class="emoji">🌷</span>Seu sorriso devia ser patrimônio cultural<span class="emoji">🐻</span></div>
-    <div class="card"><span class="emoji">🌸</span>Te ver feliz me deixa feliz também 💖<span class="emoji">🧸</span></div>
-    <div class="card"><span class="emoji">🐰</span>Você é muito gentil!<span class="emoji">🌼</span></div>
-    <div class="card"><span class="emoji">💐</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🐻‍❄️</span></div>
+    <div class="card">
+      <span class="emoji">🧸</span>Você ilumina o meu dia!<span class="emoji">🌸</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🌷</span>Seu sorriso devia ser patrimônio cultural<span class="emoji">🐻</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🌸</span>Te ver feliz me deixa feliz também 💖<span class="emoji">🧸</span>
+    </div>
+    <div class="card">
+      <span class="emoji">🐰</span>Você é muito gentil!<span class="emoji">🌼</span>
+    </div>
+    <div class="card">
+      <span class="emoji">💐</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🐻‍❄️</span>
+    </div>
   </div>
 
-  <audio id="somCartinha" src="som.mp3"></audio>
+  <!-- Música de fundo -->
+  <audio id="musicaFundo" src="lofi.mp3" autoplay loop volume="0.2"></audio>
+
+  <!-- Pétalas de sakura -->
+  <script>
+    const numPetalas = 20;
+
+    function criarPetala() {
+      const petala = document.createElement('span');
+      petala.classList.add('petala');
+      petala.textContent = '🌸';
+
+      // Posição horizontal random (0 a 100vw)
+      petala.style.left = Math.random() * 100 + 'vw';
+
+      // Duração e atraso random para animação cair
+      const duracao = 8 + Math.random() * 7; // 8 a 15 segundos
+      const atraso = Math.random() * 15; // até 15s de atraso
+
+      petala.style.animationDuration = duracao + 's';
+      petala.style.animationDelay = atraso + 's';
+
+      document.body.appendChild(petala);
+
+      // Remove a pétala depois da animação para não poluir o DOM
+      setTimeout(() => {
+        petala.remove();
+        criarPetala(); // cria outra no lugar
+      }, (duracao + atraso) * 1000);
+    }
+
+    for (let i = 0; i < numPetalas; i++) {
+      criarPetala();
+    }
+  </script>
+
+  <!-- Personagens dos lados -->
+  <img
+    src="https://static.wikia.nocookie.net/gensin-impact/images/7/70/Kazuha_Icon.png"
+    alt="Kazuha"
+    class="personagem esquerda"
+  />
+  <img
+    src="https://static.wikia.nocookie.net/gensin-impact/images/6/6d/Sayu_Icon.png"
+    alt="Sayu"
+    class="personagem direita"
+  />
 
   <script>
     function abrirCartinha() {
@@ -144,10 +267,11 @@
       cards.forEach((card, index) => {
         setTimeout(() => {
           card.classList.add('aparecer');
-        }, index * 500); // intervalo de 0.5s entre cada card
+        }, index * 500);
       });
     }
   </script>
 
+  <audio id="somCartinha" src="som.mp3"></audio>
 </body>
 </html>
