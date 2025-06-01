@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cartinha para Você 💌</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #ffeef2;
+      text-align: center;
+      padding-top: 50px;
+    }
 
+    .cartinha {
+      background-color: #fff;
+      border: 2px solid #ffb6c1;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .mensagem {
+      display: none;
+      margin-top: 20px;
+      color: #d63384;
+      font-size: 18px;
+    }
+
+    button {
+      background-color: #ffb6c1;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff69b4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cartinha">
+    <h1>💌 Uma Cartinha Especial 💌</h1>
+    <p>Tem algo aqui dentro pra você...</p>
+    <button onclick="abrirCartinha()">Abrir Cartinha</button>
+
+    <div class="mensagem" id="mensagemCartinha">
+      <p>Oi! 💖 Eu só queria te lembrar que você é uma pessoa muito especial e que merece todo o carinho do mundo.</p>
+    </div>
+  </div>
+
+  <script>
+    function abrirCartinha() {
+      document.getElementById('mensagemCartinha').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
