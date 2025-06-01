@@ -72,6 +72,23 @@
     button:hover {
       background-color: #ff69b4;
     }
+
+    .card {
+  background-color: #fff0f5;
+  border: 2px solid #ffb6c1;
+  border-radius: 12px;
+  padding: 15px;
+  width: 250px;
+  margin: 10px auto;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.1);
+  font-size: 16px;
+  color: #a83279;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
   </style>
 </head>
 <body>
@@ -83,6 +100,18 @@
         <p>Vai, Abre!</p>
         <button onclick="abrirCartinha()">Abrir Cartinha</button>
       </div>
+
+      <div style="margin-top: 50px;">
+  <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
+</div>
+
+<div id="cardsElogios" style="display: none; margin-top: 30px;">
+  <div class="card">Você ilumina o meu dia!</div>
+  <div class="card">Seu sorriso devia ser patrimônio cultural</div>
+  <div class="card">Te ver feliz me deixa feliz também 💖</div>
+  <div class="card">Você é muito gentil!</div>
+  <div class="card">Eu acredito em você, sempre, até nas provas do Avila 😔😔</div>
+</div>
 
       <div class="dentro">
         <p>Oi fofaaa, fiz esse sitezinho pra você, "fiz" é uma palavra muito forte porque precisei de muita ajuda do meu amigão GPT, mas é porque faz pouco tempo que eu to em TI tá bom 😔😔, quando eu souber programar sozinho eu faço outro pra você, só queria te dizer que você é muito legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, te adoro!</p>
@@ -98,6 +127,11 @@
     const som = document.getElementById('somCartinha');
     cartinha.classList.add('aberta');
     som.play();
+  function mostrarElogios() {
+  const area = document.getElementById('cardsElogios');
+  area.style.display = 'block';
+}
+
   }
 </script>
 
