@@ -18,7 +18,7 @@
       overflow-x: hidden;
       position: relative;
     }
-
+    
     .container {
       position: relative;
       width: 320px;
@@ -35,6 +35,9 @@
       cursor: pointer;
       box-sizing: border-box;
     }
+    .cartinha.aberta {
+  transform: rotateY(180deg);}
+
 
     .frente,
     .dentro {
@@ -240,11 +243,11 @@
 
   <!-- Cartinha movida para baixo de tudo -->
   <div class="container">
-    <div class="cartinha" id="cartinha" onclick="abrirCartinha()">
+    <div class="cartinha" id="cartinha">
       <div class="frente">
         <h1>💌Cartinha Misteriosa💌</h1>
         <p>Vai, Abre!</p>
-        <button onclick="abrirCartinha(event)">Abrir Cartinha</button>
+        <button type="button" onclick="abrirCartinha(event)">Abrir Cartinha</button>
       </div>
       <div class="dentro">
         <p>
