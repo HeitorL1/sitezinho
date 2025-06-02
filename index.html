@@ -8,8 +8,12 @@
       font-family: 'Arial', sans-serif;
       background-color: #ffeef2;
       text-align: center;
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
+      flex-direction: column;
       padding: 20px;
       overflow-x: hidden;
       position: relative;
@@ -19,7 +23,7 @@
       position: relative;
       width: 320px;
       height: 200px;
-      margin: 80px auto 0 auto;
+      margin: 0 auto;
       perspective: 1000px;
       z-index: 10;
     }
@@ -166,16 +170,34 @@
     #botaoElogios { margin-top: 30px; z-index: 15; position: relative; }
     #cardsElogios { margin-top: 20px; max-width: 320px; margin-left: auto; margin-right: auto; }
 
-    #musicaFundo {
+    #botaoMusica {
       position: fixed;
-      bottom: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 0;
+      top: 10px;
+      left: 10px;
+      font-size: 14px;
+      padding: 6px 12px;
+      z-index: 100;
+    }
+
+    #ursinhoFofo {
+      display: none;
+      width: 100px;
+      margin-left: 10px;
+      vertical-align: middle;
+      opacity: 0.6;
+    }
+
+    .linhaResposta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
   </style>
 </head>
 <body>
+  <button id="botaoMusica" onclick="document.getElementById('musicaFundo').play()">▶️ Música</button>
+
   <div class="container">
     <div class="cartinha" id="cartinha" onclick="abrirCartinha()">
       <div class="frente">
@@ -185,7 +207,7 @@
       </div>
       <div class="dentro">
         <p>
-          Oi fofaaa, fiz esse mini site pra você. Só queria te dizer que você é muito legal e que eu te adoro!!! Você fez meus últimos dias da minha vida muito legais e espero que continue assim, ti amo!
+          Oi fofaaa, "fiz" (é uma palavra muito forte porque precisei de muita ajuda (quase o site inteiro) do meu amigão GPT, mas as mensagens, o que tem no site e personalização foi tudo eu que fiz!, mas é porque faz pouco tempo que eu to em TI tá 😔😔, quando eu souber programar 100% eu faço outro só eu pra você) esse mini site pra você, só queria te dizer que você é mt legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, ti amo!
         </p>
       </div>
     </div>
@@ -203,16 +225,18 @@
     <div class="card"><span class="emoji">🌹</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🍧</span></div>
   </div>
 
+  <!-- Bloco "Você me acha legal?" -->
   <div style="margin-top: 40px;">
     <h2>Você me acha legal?</h2>
-    <div style="position: relative;">
-      <img src="https://i.imgur.com/dgX9PpB.png" alt="ursinho fofo" id="ursinhoFofo" style="display: none; position: absolute; left: -80px; top: -50px; width: 100px; z-index: 1; opacity: 0.6;">
-      <button id="simLegal" onmouseover="fugirBotao(this)" onclick="respostaLegal(true)">Sim</button>
-      <button onclick="respostaLegal(false)">Não</button>
+    <div class="linhaResposta">
+      <button id="simLegal" onclick="clicarSim()">Sim</button>
+      <button id="naoLegal" onmouseover="fugirBotao(this)" onclick="respostaLegal(false)">Não</button>
+      <img src="https://i.imgur.com/dgX9PpB.png" alt="ursinho fofo" id="ursinhoFofo">
     </div>
     <p id="mensagemLegal" style="margin-top: 15px; color: #a83279; font-weight: bold;"></p>
   </div>
 
+  <!-- Bloco "Você é incrível?" -->
   <div style="margin-top: 40px;">
     <h2>Você é incrível?</h2>
     <button onclick="respostaIncrivel(true)">Sim</button>
@@ -221,10 +245,14 @@
   </div>
 
   <audio id="musicaFundo" src="lofi.mp3" loop></audio>
-  <button onclick="document.getElementById('musicaFundo').play()" style="margin-top: 20px;">▶️ Tocar música de fundo</button>
+  <audio id="somCartinha" src="som.mp3"></audio>
+
+  <img src="https://upload-os-bbs.hoyolab.com/upload/2023/06/08/293977456/dd0a81c03a7dbe0bb26e90facb3510b5_8728453849821400507.png" alt="Kokomi" class="personagem esquerda" />
+  <img src="https://pbs.twimg.com/media/E_abKOgVgA4sruM.png" alt="Kokomi2" class="personagem direita" />
 
   <script>
     const numPetalas = 20;
+    for (let i = 0; i < numPetalas; i++) criarPetala();
     function criarPetala() {
       const petala = document.createElement('span');
       petala.classList.add('petala');
@@ -237,14 +265,12 @@
       document.body.appendChild(petala);
       setTimeout(() => { petala.remove(); criarPetala(); }, (duracao + atraso) * 1000);
     }
-    for (let i = 0; i < numPetalas; i++) criarPetala();
 
     function abrirCartinha(event) {
-      if(event) event.stopPropagation();
+      if (event) event.stopPropagation();
       const cartinha = document.getElementById('cartinha');
-      const som = document.getElementById('somCartinha');
+      document.getElementById('somCartinha').play();
       cartinha.classList.add('aberta');
-      som.play();
     }
 
     function mostrarElogios() {
@@ -257,12 +283,23 @@
     }
 
     function fugirBotao(botao) {
-      const maxX = 120;
-      const maxY = 50;
+      const maxX = 120, maxY = 50;
       const randX = Math.random() * maxX - maxX / 2;
       const randY = Math.random() * maxY - maxY / 2;
       botao.style.position = 'relative';
       botao.style.transform = `translate(${randX}px, ${randY}px)`;
+    }
+
+    let cliquesSim = 0;
+    function clicarSim() {
+      cliquesSim++;
+      if (cliquesSim < 10) {
+        const btn = document.getElementById('simLegal');
+        fugirBotao(btn);
+      } else {
+        respostaLegal(true);
+        document.getElementById('simLegal').disabled = true;
+      }
     }
 
     function respostaLegal(sim) {
@@ -270,7 +307,7 @@
       const ursinho = document.getElementById('ursinhoFofo');
       if (sim) {
         mensagem.textContent = 'Aaaah, eu sabia!! Te amoooooo! 💖';
-        ursinho.style.display = 'block';
+        ursinho.style.display = 'inline-block';
       } else {
         mensagem.textContent = 'Po... vou ali chorar rapidinho, calma, já volto...😥';
       }
@@ -287,10 +324,5 @@
       }
     }
   </script>
-
-  <audio id="somCartinha" src="som.mp3"></audio>
-
-  <img src="https://upload-os-bbs.hoyolab.com/upload/2023/06/08/293977456/dd0a81c03a7dbe0bb26e90facb3510b5_8728453849821400507.png" alt="Kokomi" class="personagem esquerda" />
-  <img src="https://pbs.twimg.com/media/E_abKOgVgA4sruM.png" alt="Kokomi2" class="personagem direita" />
 </body>
 </html>
