@@ -71,10 +71,6 @@
       gap: 10px;
     }
 
-    .cartinha.aberta {
-      transform: rotateY(180deg);
-    }
-
     button {
       background-color: #ffb6c1;
       border: none;
@@ -210,22 +206,7 @@
 <body>
   <button id="botaoMusica" onclick="document.getElementById('musicaFundo').play()">▶️ Música</button>
 
-  <div class="container">
-    <div class="cartinha" id="cartinha" onclick="abrirCartinha()">
-      <div class="frente">
-        <h1>💌Cartinha Misteriosa💌</h1>
-        <p>Vai, Abre!</p>
-        <button onclick="abrirCartinha(event)">Abrir Cartinha</button>
-      </div>
-      <div class="dentro">
-        <p>
-          Oi fofaaa, "fiz" (é uma palavra muito forte porque precisei de muita ajuda (quase o site inteiro) do meu amigão GPT, mas as mensagens, o que tem no site e personalização foi tudo eu que fiz!, mas é porque faz pouco tempo que eu to em TI tá 😔😔, quando eu souber programar 100% eu faço outro só eu pra você) esse mini site pra você, só queria te dizer que você é mt legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, ti amo!
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Botão "Quero ler coisinhas fofas" abaixo da cartinha -->
+  <!-- Botão "Quero ler coisinhas fofas" fica aqui, visível e em cima -->
   <div id="botaoElogios">
     <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
   </div>
@@ -257,6 +238,22 @@
     <p id="mensagemIncrivel" style="margin-top: 15px; color: #a83279; font-weight: bold;"></p>
   </div>
 
+  <!-- Cartinha movida para baixo de tudo -->
+  <div class="container">
+    <div class="cartinha" id="cartinha" onclick="abrirCartinha()">
+      <div class="frente">
+        <h1>💌Cartinha Misteriosa💌</h1>
+        <p>Vai, Abre!</p>
+        <button onclick="abrirCartinha(event)">Abrir Cartinha</button>
+      </div>
+      <div class="dentro">
+        <p>
+          Oi fofaaa, "fiz" (é uma palavra muito forte porque precisei de muita ajuda (quase o site inteiro) do meu amigão GPT, mas as mensagens, o que tem no site e personalização foi tudo eu que fiz!, mas é porque faz pouco tempo que eu to em TI tá 😔😔, quando eu souber programar 100% eu faço outro só eu pra você) esse mini site pra você, só queria te dizer que você é mt legal e que eu te adoro!!! Você fez meus ultimos dias da minha vida muito legais e espero que continue assim, ti amo!
+        </p>
+      </div>
+    </div>
+  </div>
+
   <audio id="musicaFundo" src="lofi.mp3" loop></audio>
   <audio id="somCartinha" src="som.mp3"></audio>
 
@@ -283,7 +280,7 @@
       if (event) event.stopPropagation();
       const cartinha = document.getElementById('cartinha');
       document.getElementById('somCartinha').play();
-      cartinha.classList.toggle('aberta');
+      cartinha.classList.add('aberta');
     }
 
     function mostrarElogios() {
@@ -294,9 +291,6 @@
         }, index * 500);
       });
     }
-
-    // Função fuga removida do botão "Não" do "Você me acha legal"
-    // Manter apenas pequena fuga do botão "Sim"
 
     let cliquesSim = 0;
     function clicarSim() {
