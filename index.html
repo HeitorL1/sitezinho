@@ -71,6 +71,10 @@
       gap: 10px;
     }
 
+    .cartinha.aberta {
+      transform: rotateY(180deg);
+    }
+
     button {
       background-color: #ffb6c1;
       border: none;
@@ -239,7 +243,6 @@
     <h2>Você me acha legal?</h2>
     <div class="linhaResposta">
       <button id="simLegal" onclick="clicarSim()">Sim</button>
-      <!-- Removido fugirBotao para o "Não" -->
       <button id="naoLegal" onclick="respostaLegal(false)">Não</button>
       <img src="https://i.imgur.com/dgX9PpB.png" alt="ursinho fofo" id="ursinhoFofo">
     </div>
@@ -280,7 +283,7 @@
       if (event) event.stopPropagation();
       const cartinha = document.getElementById('cartinha');
       document.getElementById('somCartinha').play();
-      cartinha.classList.add('aberta');
+      cartinha.classList.toggle('aberta');
     }
 
     function mostrarElogios() {
@@ -293,14 +296,13 @@
     }
 
     // Função fuga removida do botão "Não" do "Você me acha legal"
-    // Mantenho aqui só para o botão "Sim"
+    // Manter apenas pequena fuga do botão "Sim"
 
     let cliquesSim = 0;
     function clicarSim() {
       cliquesSim++;
       if (cliquesSim < 10) {
         const btn = document.getElementById('simLegal');
-        // manter a pequena fuga do botão "Sim"
         const maxX = 120, maxY = 50;
         const randX = Math.random() * maxX - maxX / 2;
         const randY = Math.random() * maxY - maxY / 2;
