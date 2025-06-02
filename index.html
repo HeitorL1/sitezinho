@@ -23,6 +23,7 @@
     .container {
       position: relative;
       width: 320px;
+      height: 200px; /* tamanho fixo e controlado */
       margin: 0 auto;
       perspective: 1000px;
       z-index: 10; /* fica na frente das pétalas */
@@ -34,6 +35,8 @@
       position: relative;
       transform-style: preserve-3d;
       transition: transform 1s;
+      cursor: pointer;
+      box-sizing: border-box;
     }
 
     .cartinha.aberta {
@@ -43,8 +46,8 @@
     .frente,
     .dentro {
       position: absolute;
-      width: 125%;
-      height: 125%;
+      width: 100%;
+      height: 100%;
       backface-visibility: hidden;
       background-color: #fff;
       border: 2px solid #ffb6c1;
@@ -52,10 +55,15 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       padding: 20px;
       box-sizing: border-box;
+      overflow-y: auto;
     }
 
     .frente {
       z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .dentro {
@@ -65,6 +73,8 @@
       align-items: center;
       justify-content: center;
       font-size: 14px;
+      text-align: center;
+      overflow-y: auto;
     }
 
     button {
@@ -166,15 +176,30 @@
       right: 10px;
       transform: scaleX(-1); /* espelha horizontalmente para ficar olhando para dentro */
     }
+
+    /* Botão 'Quero ler coisinhas fofas' fora do container da cartinha */
+    #botaoElogios {
+      margin-top: 30px;
+      z-index: 15;
+      position: relative;
+    }
+
+    /* Container dos cards */
+    #cardsElogios {
+      margin-top: 20px;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="cartinha" id="cartinha">
+    <div class="cartinha" id="cartinha" onclick="abrirCartinha()">
       <div class="frente">
         <h1>💌Cartinha Misteriosa💌</h1>
         <p>Vai, Abre!</p>
-        <button onclick="abrirCartinha()">Abrir Cartinha</button>
+        <button onclick="abrirCartinha(event)">Abrir Cartinha</button>
       </div>
       <div class="dentro">
         <p>
@@ -184,11 +209,11 @@
     </div>
   </div>
 
-  <div style="margin-top: 50px; z-index: 15; position: relative;">
+  <div id="botaoElogios">
     <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
   </div>
 
-  <div id="cardsElogios" style="margin-top: 30px;">
+  <div id="cardsElogios">
     <div class="card">
       <span class="emoji">🧸</span>Você ilumina o meu dia!<span class="emoji">🌸</span>
     </div>
@@ -196,18 +221,18 @@
       <span class="emoji">🌷</span>Seu sorriso devia ser patrimônio cultural<span class="emoji">🐻</span>
     </div>
     <div class="card">
-      <span class="emoji">🌸</span>Te ver feliz me deixa feliz também 💖<span class="emoji">🧸</span>
+      <span class="emoji">🌺</span>Te ver feliz me deixa feliz também 💖<span class="emoji">🧸</span>
     </div>
     <div class="card">
       <span class="emoji">🐰</span>Você é muito gentil!<span class="emoji">🌼</span>
     </div>
     <div class="card">
-      <span class="emoji">💐</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🐻‍❄️</span>
+      <span class="emoji">🌹</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🍧</span>
     </div>
   </div>
 
   <!-- Música de fundo -->
-  <audio id="musicaFundo" src="lofi.mp3" autoplay loop volume="0.2"></audio>
+  <audio id="musicaFundo" src="lofi.mp3" autoplay loop></audio>
 
   <!-- Pétalas de sakura -->
   <script>
@@ -218,22 +243,19 @@
       petala.classList.add('petala');
       petala.textContent = '🌸';
 
-      // Posição horizontal random (0 a 100vw)
       petala.style.left = Math.random() * 100 + 'vw';
 
-      // Duração e atraso random para animação cair
-      const duracao = 8 + Math.random() * 7; // 8 a 15 segundos
-      const atraso = Math.random() * 15; // até 15s de atraso
+      const duracao = 8 + Math.random() * 7;
+      const atraso = Math.random() * 15;
 
       petala.style.animationDuration = duracao + 's';
       petala.style.animationDelay = atraso + 's';
 
       document.body.appendChild(petala);
 
-      // Remove a pétala depois da animação para não poluir o DOM
       setTimeout(() => {
         petala.remove();
-        criarPetala(); // cria outra no lugar
+        criarPetala();
       }, (duracao + atraso) * 1000);
     }
 
@@ -244,18 +266,19 @@
 
   <!-- Personagens dos lados -->
   <img
-    src="https://static.wikia.nocookie.net/gensin-impact/images/7/70/Kazuha_Icon.png"
-    alt="Kazuha"
+    src="https://upload-os-bbs.hoyolab.com/upload/2023/06/08/293977456/dd0a81c03a7dbe0bb26e90facb3510b5_8728453849821400507.png"
+    alt="Kokomi"
     class="personagem esquerda"
   />
   <img
-    src="https://static.wikia.nocookie.net/gensin-impact/images/6/6d/Sayu_Icon.png"
-    alt="Sayu"
+    src="https://pbs.twimg.com/media/E_abKOgVgA4sruM.png"
+    alt="Kokomi2"
     class="personagem direita"
   />
 
   <script>
-    function abrirCartinha() {
+    function abrirCartinha(event) {
+      if(event) event.stopPropagation(); // pra evitar o clique do container
       const cartinha = document.getElementById('cartinha');
       const som = document.getElementById('somCartinha');
       cartinha.classList.add('aberta');
