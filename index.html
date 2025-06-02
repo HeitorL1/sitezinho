@@ -20,36 +20,36 @@
     }
 
     .container {
-  position: relative;
-  width: 320px;
-  margin: 0 auto;
-  perspective: 1000px;
-  z-index: 10;
-}
+      position: relative;
+      width: 320px;
+      margin: 0 auto;
+      perspective: 1000px;
+      z-index: 10;
+    }
 
-.cartinha {
-  width: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1s;
-  cursor: pointer;
-  box-sizing: border-box;
-}
+    .cartinha {
+      width: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
 
-.frente,
-.dentro {
-  position: absolute;
-  width: 100%;
-  min-height: 200px;
-  backface-visibility: hidden;
-  background-color: #fff;
-  border: 2px solid #ffb6c1;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
+    .frente,
+    .dentro {
+      position: absolute;
+      width: 100%;
+      min-height: 200px;
+      backface-visibility: hidden;
+      background-color: #fff;
+      border: 2px solid #ffb6c1;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
     
     .frente {
       z-index: 2;
@@ -59,17 +59,17 @@
       align-items: center;
     }
 
-.dentro {
-  transform: rotateY(180deg);
-  color: #d63384;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  text-align: center;
-  flex-direction: row;
-  gap: 10px;
-}
+    .dentro {
+      transform: rotateY(180deg);
+      color: #d63384;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      text-align: center;
+      flex-direction: row;
+      gap: 10px;
+    }
 
     button {
       background-color: #ffb6c1;
@@ -154,7 +154,7 @@
     .personagem {
       position: fixed;
       bottom: 0;
-      width: 220px;
+      width: 440px;
       z-index: 20;
       user-select: none;
       pointer-events: none;
@@ -176,12 +176,12 @@
     }
 
     #ursinhoFofo {
-  display: none;
-  width: 100px;
-  vertical-align: middle;
-  opacity: 0.6;
-  flex-shrink: 0;
-}
+      display: none;
+      width: 100px;
+      vertical-align: middle;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
 
     .linhaResposta {
       display: flex;
@@ -226,7 +226,7 @@
     <h2>Você me acha legal?</h2>
     <div class="linhaResposta">
       <button id="simLegal" onclick="clicarSim()">Sim</button>
-      <button id="naoLegal" onmouseover="fugirBotao(this)" onclick="respostaLegal(false)">Não</button>
+      <button id="naoLegal" onclick="respostaLegal(false)">Não</button>
       <img src="https://i.imgur.com/dgX9PpB.png" alt="ursinho fofo" id="ursinhoFofo">
     </div>
     <p id="mensagemLegal" style="margin-top: 15px; color: #a83279; font-weight: bold;"></p>
