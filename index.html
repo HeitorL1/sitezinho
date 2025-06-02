@@ -8,12 +8,8 @@
       font-family: 'Arial', sans-serif;
       background-color: #ffeef2;
       text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      display: block;
       margin: 0;
-      flex-direction: column;
       padding: 20px;
       overflow-x: hidden;
       position: relative;
@@ -23,7 +19,7 @@
       position: relative;
       width: 320px;
       height: 200px;
-      margin: 0 auto;
+      margin: 80px auto 0 auto;
       perspective: 1000px;
       z-index: 10;
     }
@@ -155,19 +151,28 @@
       }
     }
 
-  .personagem {
-  position: fixed;
-  bottom: 0;
-  width: 180px; /* Aumentado */
-  z-index: 20;
-  user-select: none;
-  pointer-events: none;
-}
+    .personagem {
+      position: fixed;
+      bottom: 0;
+      width: 180px;
+      z-index: 20;
+      user-select: none;
+      pointer-events: none;
+    }
+
     .personagem.esquerda { left: 10px; }
     .personagem.direita { right: 10px; transform: scaleX(-1); }
 
     #botaoElogios { margin-top: 30px; z-index: 15; position: relative; }
     #cardsElogios { margin-top: 20px; max-width: 320px; margin-left: auto; margin-right: auto; }
+
+    #musicaFundo {
+      position: fixed;
+      bottom: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
@@ -198,18 +203,16 @@
     <div class="card"><span class="emoji">🌹</span>Eu acredito em você, sempre, até nas provas do Ávila 😔<span class="emoji">🍧</span></div>
   </div>
 
-  <!-- Bloco "Você me acha legal?" -->
   <div style="margin-top: 40px;">
     <h2>Você me acha legal?</h2>
     <div style="position: relative;">
       <img src="https://i.imgur.com/dgX9PpB.png" alt="ursinho fofo" id="ursinhoFofo" style="display: none; position: absolute; left: -80px; top: -50px; width: 100px; z-index: 1; opacity: 0.6;">
-      <button onclick="respostaLegal(true)">Sim</button>
-      <button id="naoLegal" onmouseover="fugirBotao(this)" onclick="respostaLegal(false)">Não</button>
+      <button id="simLegal" onmouseover="fugirBotao(this)" onclick="respostaLegal(true)">Sim</button>
+      <button onclick="respostaLegal(false)">Não</button>
     </div>
     <p id="mensagemLegal" style="margin-top: 15px; color: #a83279; font-weight: bold;"></p>
   </div>
 
-  <!-- Bloco "Você é incrível?" -->
   <div style="margin-top: 40px;">
     <h2>Você é incrível?</h2>
     <button onclick="respostaIncrivel(true)">Sim</button>
