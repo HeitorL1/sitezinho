@@ -34,6 +34,14 @@
       transition: transform 1s;
       cursor: pointer;
       box-sizing: border-box;
+      /* inicial sem rotação */
+      transform: rotateY(0deg);
+    }
+
+    /* Quando a cartinha estiver aberta, gira 180 graus */
+    .cartinha.aberta {
+      transform: rotateY(180deg);
+      cursor: default;
     }
 
     .frente,
@@ -50,7 +58,7 @@
       box-sizing: border-box;
       overflow-y: auto;
     }
-    
+
     .frente {
       z-index: 2;
       display: flex;
@@ -154,7 +162,7 @@
     .personagem {
       position: fixed;
       bottom: 0;
-      width: 440px;
+      width: 220px;
       z-index: 20;
       user-select: none;
       pointer-events: none;
@@ -163,8 +171,21 @@
     .personagem.esquerda { left: 10px; }
     .personagem.direita { right: 10px; transform: scaleX(-1); }
 
-    #botaoElogios { margin-top: 30px; z-index: 15; position: relative; }
-    #cardsElogios { margin-top: 20px; max-width: 320px; margin-left: auto; margin-right: auto; }
+    #botaoElogios {
+      margin-top: 30px;
+      z-index: 15;
+      position: relative;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #cardsElogios {
+      margin-top: 20px;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     #botaoMusica {
       position: fixed;
@@ -209,6 +230,7 @@
     </div>
   </div>
 
+  <!-- MOVI O BOTÃO PARA AQUI -->
   <div id="botaoElogios">
     <button onclick="mostrarElogios()">Quero ler coisinhas fofas ✨</button>
   </div>
@@ -226,7 +248,7 @@
     <h2>Você me acha legal?</h2>
     <div class="linhaResposta">
       <button id="simLegal" onclick="clicarSim()">Sim</button>
-      <button id="naoLegal" onclick="respostaLegal(false)">Não</button>
+      <button id="naoLegal" onmouseover="fugirBotao(this)" onclick="respostaLegal(false)">Não</button>
       <img src="https://i.imgur.com/dgX9PpB.png" alt="ursinho fofo" id="ursinhoFofo">
     </div>
     <p id="mensagemLegal" style="margin-top: 15px; color: #a83279; font-weight: bold;"></p>
